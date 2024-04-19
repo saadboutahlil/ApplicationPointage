@@ -8,7 +8,7 @@ public class ApiController {
 	
 	@GetMapping(value="/")
 	public String getPage() {
-		return "Bienvenue";
+		return "first push";
 	}
 
 }
