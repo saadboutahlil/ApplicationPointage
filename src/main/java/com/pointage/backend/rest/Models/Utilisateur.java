@@ -26,8 +26,7 @@ public String login;
 @Column
 public String password;
 
-@OneToMany(cascade=CascadeType.ALL, mappedBy="utilisateur")
-private List<Planning> planning;
+
 public long getId() {
 	return utilisateurId;
 }

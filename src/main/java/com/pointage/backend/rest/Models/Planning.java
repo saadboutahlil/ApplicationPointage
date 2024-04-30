@@ -9,95 +9,75 @@ public class Planning{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long planingId;
+	public long planningId;
 	
 	@Column
-	public Date datePointage;
+	public Date datePlanning;
 	
 	@Column
-	public Date heureEntree;
+	public int nbrSemaine;
 	
-	@Column
-	public Date heureSortie;
-	
-	@Column
-	public int dureePause;
-	
-	@Column
-	public String type;
-	
-	@Column
-	public int NbrPointage;
 	
 	@ManyToOne
-	@JoinColumn(name = "utilisateurId")
-	private Utilisateur utilisateur;
+	@JoinColumn(name = "managerId")
+	private Manager manager;
+	
+	@ManyToOne
+	@JoinColumn(name = "collaborateurId")
+	private Collaborateur collaborateur;
+	
+	@ManyToOne
+	@JoinColumn(name = "typePlannificationId")
+	private TypePlannification typePlannification;
 
-	public long getPlaningId() {
-		return planingId;
+	public long getPlanningId() {
+		return planningId;
 	}
 
-	public void setPlaningId(long planingId) {
-		this.planingId = planingId;
+	public void setPlanningId(long planningId) {
+		this.planningId = planningId;
 	}
 
-	public Date getDatePointage() {
-		return datePointage;
+	
+	public Manager getManager() {
+		return manager;
 	}
 
-	public void setDatePointage(Date datePointage) {
-		this.datePointage = datePointage;
-	}
-
-	public Date getHeureEntree() {
-		return heureEntree;
-	}
-
-	public void setHeureEntree(Date heureEntree) {
-		this.heureEntree = heureEntree;
-	}
-
-	public Date getHeureSortie() {
-		return heureSortie;
-	}
-
-	public void setHeureSortie(Date heureSortie) {
-		this.heureSortie = heureSortie;
-	}
-
-	public int getDureePause() {
-		return dureePause;
-	}
-
-	public void setDureePause(int dureePause) {
-		this.dureePause = dureePause;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getNbrPointage() {
-		return NbrPointage;
-	}
-
-	public void setNbrPointage(int nbrPointage) {
-		NbrPointage = nbrPointage;
-	}
-
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 	
+	public Date getDatePlanning() {
+		return datePlanning;
+	}
 
+	public void setDatePlanning(Date datePlanning) {
+		this.datePlanning = datePlanning;
+	}
+
+	public int getNbrSemaine() {
+		return nbrSemaine;
+	}
+
+	public void setNbrSemaine(int nbrSemaine) {
+		this.nbrSemaine = nbrSemaine;
+	}
+
+	public TypePlannification getTypePlannification() {
+		return typePlannification;
+	}
+
+	public void setTypePlannification(TypePlannification typePlannification) {
+		this.typePlannification = typePlannification;
+	}
+
+	public Collaborateur getCollaborateur() {
+		return collaborateur;
+	}
+
+	public void setCollaborateur(Collaborateur collaborateur) {
+		this.collaborateur = collaborateur;
+	}
 	
 	
 	
