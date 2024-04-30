@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.pointage.backend.rest.Models.Utilisateur;
 
-public interface UtilisateurRepo extends JpaRepository<Utilisateur,Long>{
-
+public interface IUtilisateurRepo extends JpaRepository<Utilisateur,Long>{
+	  Utilisateur findByLoginAndPassword(String login, String password);
 }
