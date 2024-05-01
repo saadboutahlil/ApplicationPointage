@@ -3,6 +3,7 @@ package com.pointage.backend.rest.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import com.pointage.backend.rest.Service.UtilisateurService;
 
 
 @RestController
+@CrossOrigin(origins= {"http://localhost:4200"})
 public class ApiController {
 	@Autowired
 	private UtilisateurService userService;
@@ -25,7 +27,7 @@ public class ApiController {
 		return "Saved";
 	}
 	
-	@GetMapping(value="/connexion")
+	@PostMapping(value="/connexion")
 	public String CheckUtilisateur(@RequestBody UtilisateurDTO user) {
 	if(userService.verifierLogin(user.login,user.password)) {
 		return "Trouvé";

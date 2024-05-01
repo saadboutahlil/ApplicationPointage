@@ -19,6 +19,10 @@ public class Information{
 	
 	@Column
 	public Date dateEmbauche;
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "collaborateurId")
+    private Collaborateur collaborateur;
 
 	public long getInformationId() {
 		return informationId;
