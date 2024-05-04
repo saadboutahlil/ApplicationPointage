@@ -20,13 +20,21 @@ public class UtilisateurService {
 	   
 	   
 	   public String saveUser(UtilisateurDTO user) {
+		   try {
 		   if(user.profil==Profil.COLLABORATEUR) {
 			   utilisateurRepo.save(convertirDTOVersCollaborateur(user));
+				return "Saved";
 		   }
 		   else if(user.profil==Profil.MANAGER){
 			   utilisateurRepo.save(convertirDTOVersManager(user));
 		   }
 			return "Saved";
+		   }
+		   
+		   catch(Exception x) {
+			   return x.getMessage();
+		   }
+		   
 		}
 	   
 	    public Collaborateur convertirDTOVersCollaborateur(UtilisateurDTO utilisateurDTO) {

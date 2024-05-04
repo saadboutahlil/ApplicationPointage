@@ -1,6 +1,5 @@
 package com.pointage.backend.rest.Controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,8 +22,7 @@ public class ApiController {
 	}
 	@PostMapping(value="/save")
 	public String saveUser(@RequestBody UtilisateurDTO user) {
-		userService.saveUser(user);
-		return "Saved";
+		return userService.saveUser(user);
 	}
 	
 	@PostMapping(value="/connexion")

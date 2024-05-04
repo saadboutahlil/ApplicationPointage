@@ -24,18 +24,6 @@ public class TypePlannification {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="typePlannification")
     private List<Planning> planning;
 
-    // Default constructor
-    public TypePlannification() {
-        // Initialize planning list
-        this.planning = new ArrayList<>();
-    }
-
-    // Constructor with parameters
-    public TypePlannification(long typePlannificationId, String type) {
-        this.typePlannificationId = typePlannificationId;
-        this.type = type;
-    }
-
     // Getters and setters
     public String getType() {
         return type;
@@ -53,13 +41,6 @@ public class TypePlannification {
         this.typePlannificationId = typePlannificationId;
     }
 
-    public List<Planning> getPlanning() {
-        return planning;
-    }
-
-    public void setPlanning(List<Planning> planning) {
-        this.planning = planning;
-    }
     /*
     // Initialize predefined types of planning
     public static final TypePlannification TELETRAVAIL = new TypePlannification(1, "TT"); // teletravail
