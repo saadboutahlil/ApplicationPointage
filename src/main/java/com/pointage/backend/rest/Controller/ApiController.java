@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.pointage.backend.rest.DTO.UtilisateurDTO;
+import com.pointage.backend.rest.DTO.UtilisateurInfoDTO;
 import com.pointage.backend.rest.Service.UtilisateurService;
 
 
@@ -26,11 +27,8 @@ public class ApiController {
 	}
 	
 	@PostMapping(value="/connexion")
-	public String CheckUtilisateur(@RequestBody UtilisateurDTO user) {
-	if(userService.verifierLogin(user.login,user.password)) {
-		return "Trouvé";
+	public UtilisateurInfoDTO CheckUtilisateur(@RequestBody UtilisateurDTO user) {
+	return userService.verifierLogin(user.login,user.password);
 	}
-		return "Inexistant";
-		}
 
 }

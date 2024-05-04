@@ -3,6 +3,7 @@ package com.pointage.backend.rest.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.pointage.backend.rest.DTO.UtilisateurDTO;
+import com.pointage.backend.rest.DTO.UtilisateurInfoDTO;
 import com.pointage.backend.rest.Models.Collaborateur;
 import com.pointage.backend.rest.Models.Manager;
 import com.pointage.backend.rest.Models.Utilisateur;
@@ -60,8 +61,13 @@ public class UtilisateurService {
 	        utilisateur.setPassword(utilisateurDTO.password);
 	        return utilisateur;
 	    }
-	    public boolean verifierLogin(String login, String password) {
+	    public UtilisateurInfoDTO verifierLogin(String login, String password) {
 	       Utilisateur utilisateur = utilisateurRepo.findByLoginAndPassword(login, password);
-	       return utilisateur != null;
+	       if (utilisateur != null) {
+	            String userType = utilisateur.getClass().getSimpleName();
+	            return new UtilisateurInfoDTO(userType, utilisateur);
+	        } else {
+	            return null;
+	        }
 	    }
 }
