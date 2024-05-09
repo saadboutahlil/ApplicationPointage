@@ -11,13 +11,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pointage.backend.rest.DTO.InformationsDTO;
+import com.pointage.backend.rest.DTO.ListInformationsDTO;
 import com.pointage.backend.rest.DTO.ListReferentielDTO;
 import com.pointage.backend.rest.DTO.PlanningDTO;
 import com.pointage.backend.rest.DTO.UtilisateurDTO;
 import com.pointage.backend.rest.Models.Collaborateur;
+import com.pointage.backend.rest.Models.Information;
+import com.pointage.backend.rest.Models.Manager;
 import com.pointage.backend.rest.Models.Planning;
 import com.pointage.backend.rest.Models.TypePlannification;
 import com.pointage.backend.rest.Repo.ICollaborateurRepo;
+import com.pointage.backend.rest.Repo.IInformationRepo;
 import com.pointage.backend.rest.Repo.IPlanningRepo;
 import com.pointage.backend.rest.Repo.ITypePlannificationRepo;
 
@@ -27,13 +32,14 @@ public class PlanningService {
 	private final ITypePlannificationRepo typePlanificationRepo;
 	private final ICollaborateurRepo collaborateurRepo;
 	private final IPlanningRepo planningRepo;
-	
+	private final IInformationRepo informationRepo;
 	   @Autowired
 	    public PlanningService(ITypePlannificationRepo typePlanificationRepo,ICollaborateurRepo collaborateurRepo,
-	    		IPlanningRepo planningRepo) {
+	    		IPlanningRepo planningRepo,IInformationRepo infoRepo) {
 	        this.typePlanificationRepo = typePlanificationRepo;
 	        this.collaborateurRepo=collaborateurRepo;
 	        this.planningRepo=planningRepo;
+	        this.informationRepo=infoRepo;
 	    }
 	   public ListReferentielDTO listReferentiel(){
 		   List<Collaborateur> listcoll=new ArrayList<>();
@@ -76,4 +82,28 @@ public class PlanningService {
 	   public List<Planning> getPlanningsByCollaborateurId(long collaborateurId) {
 	        return this.planningRepo.findByCollaborateur_UtilisateurId(collaborateurId);
 	    }
+	   
+	   public String saveInformations(InformationsDTO informationdto) {
+try {
+	        this.informationRepo.save(convertirDTOVersInformation(informationdto));
+	        return "saved";
+}
+catch(Exception x) {
+	return x.getMessage();
+}
+		   
+		}
+	    public Information convertirDTOVersInformation(InformationsDTO informationdto) {
+	    	Information info = new Information();
+	    	info.setDateEmbauche(informationdto.dateEmbauche);
+	    	info.setReliquat(informationdto.reliquat);
+	    	info.setSalaire(informationdto.salaire);
+	    	info.setCollaborateur(this.collaborateurRepo.getById(informationdto.collaborateurId));
+	        return info;
+	    }
+		   public List<Information> list(){
+			   
+			return this.informationRepo.findAll();
+		   }
+		   
 }

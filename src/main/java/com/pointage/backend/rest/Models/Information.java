@@ -55,6 +55,14 @@ public class Information{
 	public void setDateEmbauche(Date dateEmbauche) {
 		this.dateEmbauche = dateEmbauche;
 	}
+
+	public Collaborateur getCollaborateur() {
+		return collaborateur;
+	}
+
+	public void setCollaborateur(Collaborateur collaborateur) {
+		this.collaborateur = collaborateur;
+	}
 	
 
 	
