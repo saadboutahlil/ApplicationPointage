@@ -8,6 +8,14 @@ import jakarta.persistence.*;
 public class Collaborateur extends Utilisateur{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="collaborateur")
 	private List<Planning> planning;
+
+	public List<Planning> getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(List<Planning> planning) {
+		this.planning = planning;
+	}
 	
 
 }

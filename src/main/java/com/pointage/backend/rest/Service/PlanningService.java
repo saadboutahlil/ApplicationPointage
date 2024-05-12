@@ -105,5 +105,4 @@ catch(Exception x) {
 			   
 			return this.informationRepo.findAll();
 		   }
-		   
 }

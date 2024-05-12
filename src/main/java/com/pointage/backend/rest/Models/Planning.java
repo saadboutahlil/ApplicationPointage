@@ -71,10 +71,6 @@ public class Planning{
 		this.typePlannification = typePlannification;
 	}
 
-	public Collaborateur getCollaborateur() {
-		return collaborateur;
-	}
-
 	public void setCollaborateur(Collaborateur collaborateur) {
 		this.collaborateur = collaborateur;
 	}
