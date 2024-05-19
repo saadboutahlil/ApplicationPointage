@@ -1,6 +1,8 @@
 package com.pointage.backend.rest.Controller;
 
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,7 @@ import com.pointage.backend.rest.Service.UtilisateurService;
 
 
 @RestController
-@CrossOrigin(origins= {"http://localhost:4200"})
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api") 
 public class ApiController {
 	@Autowired
@@ -29,7 +31,7 @@ public class ApiController {
 	}
 	
 	@PostMapping(value="/connexion")
-	public UtilisateurInfoDTO CheckUtilisateur(@RequestBody UtilisateurDTO user) {
+	public UtilisateurInfoDTO CheckUtilisateur(@RequestBody UtilisateurDTO user) throws NoSuchAlgorithmException {
 	return userService.verifierLogin(user.login,user.password);
 	}
 

@@ -1,14 +1,19 @@
 package com.pointage.backend.rest.Service;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import com.pointage.backend.rest.DTO.UtilisateurDTO;
 import com.pointage.backend.rest.DTO.UtilisateurInfoDTO;
 import com.pointage.backend.rest.Models.Collaborateur;
 import com.pointage.backend.rest.Models.Manager;
+import com.pointage.backend.rest.Models.RH;
 import com.pointage.backend.rest.Models.Utilisateur;
 import com.pointage.backend.rest.Repo.IUtilisateurRepo;
 
+import utiliies.PasswordUtils;
 import utiliies.Profil;
 @Service
 public class UtilisateurService {
@@ -19,7 +24,6 @@ public class UtilisateurService {
 	        this.utilisateurRepo = utilisateurRepo;
 	    }
 	   
-	   
 	   public String saveUser(UtilisateurDTO user) {
 		   try {
 		   if(user.profil==Profil.COLLABORATEUR) {
@@ -28,6 +32,9 @@ public class UtilisateurService {
 		   }
 		   else if(user.profil==Profil.MANAGER){
 			   utilisateurRepo.save(convertirDTOVersManager(user));
+		   }
+		   else if(user.profil==Profil.RH){
+			   utilisateurRepo.save(convertirDTOVersRH(user));
 		   }
 			return "Saved";
 		   }
@@ -38,7 +45,7 @@ public class UtilisateurService {
 		   
 		}
 	   
-	    public Collaborateur convertirDTOVersCollaborateur(UtilisateurDTO utilisateurDTO) {
+	    public Collaborateur convertirDTOVersCollaborateur(UtilisateurDTO utilisateurDTO) throws NoSuchAlgorithmException {
 	    	Collaborateur utilisateur = new Collaborateur();
 	        utilisateur.setNom(utilisateurDTO.nom);
 	        utilisateur.setPrenom(utilisateurDTO.prenom);
@@ -46,11 +53,11 @@ public class UtilisateurService {
 	        utilisateur.setTelephone(utilisateurDTO.telephone);
 	        utilisateur.setEmail(utilisateurDTO.email);
 	        utilisateur.setLogin(utilisateurDTO.login);
-	        utilisateur.setPassword(utilisateurDTO.password);
+	        utilisateur.setPassword(PasswordUtils.encryptPassword(utilisateurDTO.password));
 	        return utilisateur;
 	    }
 	    
-	    public Manager convertirDTOVersManager(UtilisateurDTO utilisateurDTO) {
+	    public Manager convertirDTOVersManager(UtilisateurDTO utilisateurDTO) throws NoSuchAlgorithmException {
 	    	Manager utilisateur = new Manager();
 	        utilisateur.setNom(utilisateurDTO.nom);
 	        utilisateur.setPrenom(utilisateurDTO.prenom);
@@ -58,14 +65,32 @@ public class UtilisateurService {
 	        utilisateur.setTelephone(utilisateurDTO.telephone);
 	        utilisateur.setEmail(utilisateurDTO.email);
 	        utilisateur.setLogin(utilisateurDTO.login);
-	        utilisateur.setPassword(utilisateurDTO.password);
+	        utilisateur.setPassword(PasswordUtils.encryptPassword(utilisateurDTO.password));
 	        return utilisateur;
 	    }
-	    public UtilisateurInfoDTO verifierLogin(String login, String password) {
-	       Utilisateur utilisateur = utilisateurRepo.findByLoginAndPassword(login, password);
+	    public RH convertirDTOVersRH(UtilisateurDTO utilisateurDTO) throws NoSuchAlgorithmException {
+	    	RH utilisateur = new RH();
+	        utilisateur.setNom(utilisateurDTO.nom);
+	        utilisateur.setPrenom(utilisateurDTO.prenom);
+	        utilisateur.setDateNaissance(utilisateurDTO.dateNaissance);
+	        utilisateur.setTelephone(utilisateurDTO.telephone);
+	        utilisateur.setEmail(utilisateurDTO.email);
+	        utilisateur.setLogin(utilisateurDTO.login);
+	        utilisateur.setPassword(PasswordUtils.encryptPassword(utilisateurDTO.password));
+	        return utilisateur;
+	    }
+	    public UtilisateurInfoDTO verifierLogin(String login, String password) throws NoSuchAlgorithmException {
+	       Utilisateur utilisateur = utilisateurRepo.findByLogin(login);
 	       if (utilisateur != null) {
-	            String userType = utilisateur.getClass().getSimpleName();
-	            return new UtilisateurInfoDTO(userType, utilisateur);
+	    	   String encryptedPassword = utilisateur.getPassword();
+	    	   if(PasswordUtils.matchPasswords(password, encryptedPassword)) {
+		            String userType = utilisateur.getClass().getSimpleName();
+		            return new UtilisateurInfoDTO(userType, utilisateur);
+	    	   }
+	    	   else {
+	    		   return null;
+	    	   }
+
 	        } else {
 	            return null;
 	        }

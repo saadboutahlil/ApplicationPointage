@@ -13,21 +13,12 @@ public class Pointage{
 	
 	@Column
 	public Date datePointage;
+	@Column
+	public String heureEntree;
 	
 	@Column
-	public int nbrSemaine;
+	public String heureSortie;
 	
-	@Column
-	public Date heureEntree;
-	
-	@Column
-	public Date heureSortie;
-	
-	@Column
-	public int dureePause;
-	
-	@Column
-	public int nbrPointage;
 	
 	@ManyToOne
 	@JoinColumn(name = "collaborateurId")
@@ -53,44 +44,20 @@ public class Pointage{
 		this.datePointage = datePointage;
 	}
 
-	public Date getHeureEntree() {
+	public String getHeureEntree() {
 		return heureEntree;
 	}
 
-	public void setHeureEntree(Date heureEntree) {
+	public void setHeureEntree(String heureEntree) {
 		this.heureEntree = heureEntree;
 	}
 
-	public Date getHeureSortie() {
+	public String getHeureSortie() {
 		return heureSortie;
 	}
 
-	public void setHeureSortie(Date heureSortie) {
+	public void setHeureSortie(String heureSortie) {
 		this.heureSortie = heureSortie;
-	}
-
-	public int getDureePause() {
-		return dureePause;
-	}
-
-	public void setDureePause(int dureePause) {
-		this.dureePause = dureePause;
-	}
-
-	public int getNbrPointage() {
-		return nbrPointage;
-	}
-
-	public void setNbrPointage(int nbrPointage) {
-		this.nbrPointage = nbrPointage;
-	}
-
-	public int getNbrSemaine() {
-		return nbrSemaine;
-	}
-
-	public void setNbrSemaine(int nbrSemaine) {
-		this.nbrSemaine = nbrSemaine;
 	}
 
 
