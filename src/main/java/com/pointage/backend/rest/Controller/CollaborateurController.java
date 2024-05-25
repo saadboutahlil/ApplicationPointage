@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pointage.backend.rest.DTO.CongeDTO;
+import com.pointage.backend.rest.DTO.InformationsDTO;
 import com.pointage.backend.rest.DTO.PlanningDTO;
 import com.pointage.backend.rest.DTO.PointageDTO;
 import com.pointage.backend.rest.DTO.UtilisateurDTO;
 import com.pointage.backend.rest.DTO.UtilisateurInfoDTO;
 import com.pointage.backend.rest.Models.Collaborateur;
+import com.pointage.backend.rest.Models.Conge;
 import com.pointage.backend.rest.Models.Information;
 import com.pointage.backend.rest.Models.Pointage;
 import com.pointage.backend.rest.Service.CollaborateurService;
@@ -46,4 +49,15 @@ public class CollaborateurController {
 	    public  Optional<Pointage> getLastPointage(@PathVariable Long collaborateurId) {
 	        return _collaborateurService.getLastPointageByCollaborateur(collaborateurId);
 	    }
+	   
+	   
+		@PostMapping(value="/saveConge")
+		public String saveConge(@RequestBody CongeDTO user) {
+			return _collaborateurService.saveConge(user);
+		}
+		
+		@GetMapping(value="/getConge")
+		public List<Conge> getConge() {
+			return _collaborateurService.list();
+	}
 }

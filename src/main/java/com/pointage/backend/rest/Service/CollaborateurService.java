@@ -8,19 +8,26 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pointage.backend.rest.DTO.CongeDTO;
+import com.pointage.backend.rest.DTO.InformationsDTO;
 import com.pointage.backend.rest.Models.Collaborateur;
+import com.pointage.backend.rest.Models.Conge;
+import com.pointage.backend.rest.Models.Information;
 import com.pointage.backend.rest.Models.Pointage;
 import com.pointage.backend.rest.Repo.ICollaborateurRepo;
+import com.pointage.backend.rest.Repo.ICongeRepo;
 import com.pointage.backend.rest.Repo.IPointageRepo;
 @Service
 public class CollaborateurService {
 	private final ICollaborateurRepo collaborateurRepo;
 	private final IPointageRepo pointageRepo;
+	private final ICongeRepo congeRepo;
 	
 	   @Autowired
-	    public CollaborateurService(ICollaborateurRepo collaborateurRepo,IPointageRepo pointageRepo) {
+	    public CollaborateurService(ICollaborateurRepo collaborateurRepo,IPointageRepo pointageRepo,ICongeRepo congeRepo) {
 	        this.collaborateurRepo = collaborateurRepo;
 	        this.pointageRepo = pointageRepo;
+	        this.congeRepo=congeRepo;
 	    }
 	   
 	   public String badger(boolean badge, long collaborateurId ) {
@@ -71,4 +78,29 @@ public class CollaborateurService {
 	            throw new IllegalArgumentException("Collaborateur non trouvé avec l'ID: " + collaborateurId);
 	        }
 	    }
+	   
+	   
+	   public String saveConge(CongeDTO congedto) {
+try {
+	        this.congeRepo.save(convertirDTOVersInformation(congedto));
+	        return "saved";
+}
+catch(Exception x) {
+	return x.getMessage();
+}
+		   
+		}
+	    public Conge convertirDTOVersInformation(CongeDTO congedto) {
+	    	Conge info = new Conge();
+	    	info.setDateConge(congedto.dateConge);
+	    	info.setNbrJour(congedto.nbrJour);
+	    	info.setCollaborateur(this.collaborateurRepo.getById(congedto.collaborateurId));
+	    	info.setValidManager(congedto.isValidManager);
+	    	info.setValidRH(congedto.isValidRH);
+	        return info;
+	    }
+		   public List<Conge> list(){
+			   
+			return this.congeRepo.findAll();
+		   }
 }

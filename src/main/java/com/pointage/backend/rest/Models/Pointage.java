@@ -2,6 +2,8 @@ package com.pointage.backend.rest.Models;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class Pointage{
 	public long pointageId;
 	
 	@Column
+    @JsonFormat(pattern="yyyy-MM-dd", timezone="Europe/Paris")
 	public Date datePointage;
 	@Column
 	public String heureEntree;
