@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.pointage.backend.rest.DTO.PointageDTO;
 import com.pointage.backend.rest.DTO.UtilisateurDTO;
 import com.pointage.backend.rest.DTO.UtilisateurInfoDTO;
+import com.pointage.backend.rest.DTO.ValidationCongeDTO;
 import com.pointage.backend.rest.Models.Collaborateur;
 import com.pointage.backend.rest.Models.Information;
 import com.pointage.backend.rest.Models.Planning;
@@ -38,4 +41,8 @@ public class ManagerController {
     public Map<Collaborateur, List<Pointage>> getPointagesGroupedByCollaborateur(@PathVariable String datePointage) {
         return _managerService.getPointagesGroupedByCollaborateur(datePointage);
     }
+	@PostMapping(value="/etat")
+	public String badger(@RequestBody ValidationCongeDTO validation) {
+		return _managerService.changeEtat(validation.val,validation.congeId);
+	}
 }

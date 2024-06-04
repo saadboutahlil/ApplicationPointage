@@ -16,6 +16,7 @@ import com.pointage.backend.rest.Models.Information;
 import com.pointage.backend.rest.Models.Pointage;
 import com.pointage.backend.rest.Repo.ICollaborateurRepo;
 import com.pointage.backend.rest.Repo.ICongeRepo;
+import com.pointage.backend.rest.Repo.IInformationRepo;
 import com.pointage.backend.rest.Repo.IPointageRepo;
 @Service
 public class CollaborateurService {
@@ -96,7 +97,6 @@ catch(Exception x) {
 	    	info.setNbrJour(congedto.nbrJour);
 	    	info.setCollaborateur(this.collaborateurRepo.getById(congedto.collaborateurId));
 	    	info.setValidManager(congedto.isValidManager);
-	    	info.setValidRH(congedto.isValidRH);
 	        return info;
 	    }
 		   public List<Conge> list(){

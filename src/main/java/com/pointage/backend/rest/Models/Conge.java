@@ -18,14 +18,12 @@ public class Conge{
 	@Column
 	public Date dateConge;
 	
-	@Column(nullable = true)
-	public Boolean isValidRH;
 	
 	@Column(nullable = true)
 	public Boolean isValidManager;
 	
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "collaborateurId")
+	@ManyToOne
+	@JoinColumn(name = "collaborateurId")
     private Collaborateur collaborateur;
 
 	public long getCongeId() {
@@ -52,14 +50,6 @@ public class Conge{
 		this.dateConge = dateConge;
 	}
 
-	public boolean isValidRH() {
-	    // Check if isValidManager is not null, and return its boolean value
-	    return isValidRH != null && isValidRH.booleanValue();
-	}
-
-	public void setValidRH(Boolean isValidRH) {
-		this.isValidRH = isValidRH;
-	}
 
 	public boolean isValidManager() {
 	    // Check if isValidManager is not null, and return its boolean value

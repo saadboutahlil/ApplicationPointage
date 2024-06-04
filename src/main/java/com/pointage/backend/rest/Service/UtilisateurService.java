@@ -56,7 +56,7 @@ public class UtilisateurService {
 	        utilisateur.setPassword(PasswordUtils.encryptPassword(utilisateurDTO.password));
 	        return utilisateur;
 	    }
-	    
+
 	    public Manager convertirDTOVersManager(UtilisateurDTO utilisateurDTO) throws NoSuchAlgorithmException {
 	    	Manager utilisateur = new Manager();
 	        utilisateur.setNom(utilisateurDTO.nom);
